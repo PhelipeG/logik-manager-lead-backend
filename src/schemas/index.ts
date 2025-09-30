@@ -38,7 +38,6 @@ export type UpdateLeadInput = z.infer<typeof updateLeadSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterInput = z.infer<typeof registerSchema>;
 
-// Formato padrão para respostas da API
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
