@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: logik_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: logik_leads
+      POSTGRES_USER: logik_user
+      POSTGRES_PASSWORD: logik_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U logik_user -d logik_leads"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  postgres_data:

@@ -34,15 +34,6 @@ Sistema completo de cadastro e gestão de leads que oferece:
 - **GET /api/leads/export/csv** - Exportar leads em formato CSV
 - **GET /api/auth/verify** - Verificar validade do token
 
-### 📊 Campos do Lead
-**Obrigatórios:**
-- Nome completo
-- Email (validação de formato)
-- Telefone (validação brasileira)
-- Cargo/Posição
-- Data de nascimento
-- Mensagem
-
 **Tracking Automático:**
 - UTM Source, Medium, Campaign, Term, Content
 - Google Click ID (gclid)
@@ -50,39 +41,147 @@ Sistema completo de cadastro e gestão de leads que oferece:
 
 ## 🚀 Como Executar
 
-### Pré-requisitos
-- Node.js (v18 ou superior)
-- PostgreSQL
-- npm ou yarn
+### Opção 1: Usando Docker (Recomendado para Testes)
 
-### 1. Clonar o repositório
+#### Pré-requisitos
+- Docker e Docker Compose instalados
+
+#### 1. Clonar o repositório
 ```bash
 git clone https://github.com/PhelipeG/logik-manager-lead-backend.git
 cd logik-manager-lead-backend
-
 ```
 
-### 2. Instalar dependências
+#### 2. Subir PostgreSQL com Docker
+```bash
+# Subir o banco PostgreSQL
+docker-compose up -d
+
+# Verificar se está rodando
+docker ps
+```
+
+#### 3. Configurar variáveis de ambiente
+Crie um arquivo `.env` na raiz do projeto:
+```env
+# Banco de dados Docker
+DATABASE_URL="postgresql://logik_user:logik_password@localhost:5432/logik_leads"
+# Servidor
+PORT=5000
+NODE_ENV="development"
+```
+
+#### 4. Instalar dependências e executar
+```bash
+# Instalar dependências
+npm install
+
+# Gerar cliente Prisma
+npm run db:generate
+
+# Executar migrations
+npm run db:migrate
+
+# Executar aplicação
+npm run dev
+```
+
+#### 5. Parar o Docker
+```bash
+# Parar PostgreSQL
+docker-compose down
+
+# Parar e remover volumes (apaga dados)
+docker-compose down -v
+```
+
+### Opção 2: Instalação Tradicional
+
+#### Pré-requisitos
+- Node.js (v18 ou superior)
+- PostgreSQL instalado localmente ou Docker (ver Opção 1)
+- npm ou yarn
+
+#### 1. Clonar o repositório
+```bash
+git clone https://github.com/PhelipeG/logik-manager-lead-backend.git
+cd logik-manager-lead-backend
+```
+
+#### 2. Instalar dependências
 ```bash
 npm install
 ```
 
-### 3. Configurar variáveis de ambiente
+#### 3. Configurar variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto:
 ```env
-# Banco de dados
+# Banco de dados local
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/logik_leads"
 # Servidor
 PORT=5000
 NODE_ENV="development"
 ```
 
-### 4. Configurar banco de dados
+#### 4. Configurar banco de dados
 ```bash
 # Gerar cliente Prisma
 npm run db:generate
 
 # Executar migrations
+npm run db:migrate
+
+# (Opcional) Executar seed para dados de teste
+npm run db:seed
+```
+
+#### 5. Executar o servidor
+```bash
+# Desenvolvimento (com hot reload)
+npm run dev
+
+# Produção
+npm run build
+npm start
+```
+
+O servidor estará rodando em: `http://localhost:5000`
+
+## 🐳 Docker Compose
+
+O projeto inclui um `docker-compose.yml` para facilitar o teste local:
+
+### Configuração do PostgreSQL
+```yaml
+# docker-compose.yml
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: logik_leads
+      POSTGRES_USER: logik_user
+      POSTGRES_PASSWORD: logik_password
+    ports:
+      - "5432:5432"
+```
+
+### Comandos úteis do Docker
+```bash
+# Subir apenas o PostgreSQL
+docker-compose up -d
+
+# Ver logs do PostgreSQL
+docker-compose logs postgres
+
+# Conectar ao PostgreSQL
+docker exec -it logik_postgres psql -U logik_user -d logik_leads
+
+# Parar serviços
+docker-compose down
+
+# Resetar dados (remove volumes)
+docker-compose down -v
+```
 npm run db:migrate
 
 # (Opcional) Executar seed para dados de teste
@@ -198,21 +297,7 @@ npm run db:seed     # Executar seed (dados teste)
 **Plataforma:** Render.com  
 **Banco de dados:** NeonDB (PostgreSQL)
 
-### Variáveis de ambiente para produção:
-```env
-DATABASE_URL="postgresql://..."
-JWT_SECRET="production-secret"
-NODE_ENV="production"
-PORT=5000
-CORS_ORIGINS="https://seu-frontend.vercel.app"
-```
-
-### Como usar no Frontend:
-```typescript
-const API_URL = "https://logik-manager-lead-backend.onrender.com";
-```
 ## 🤝 Contribuição
-
 Este projeto foi desenvolvido como teste técnico para a L0gik. 
 
 ### Autor
