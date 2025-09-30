@@ -142,7 +142,6 @@ src/
 ├── schemas/         # Schemas de validação (Zod)
 ├── database/        # Configuração do banco
 └── server.ts        # Arquivo principal
-
 prisma/
 ├── schema.prisma    # Schema do banco de dados
 └── migrations/      # Migrations do banco
