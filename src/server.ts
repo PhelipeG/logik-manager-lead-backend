@@ -18,7 +18,7 @@ async function start() {
           version: "1.0.0",
         },
         host: "localhost:5000",
-        schemes: ["http"],
+        schemes: ["http", "https"],
         consumes: ["application/json"],
         produces: ["application/json"],
       },
@@ -39,11 +39,11 @@ async function start() {
     await fastify.register(routes);
 
     const port = Number(process.env.PORT) || 3001;
-    const host =
-      process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
-
+    const host = "0.0.0.0";
+     
     await fastify.listen({ port, host });
     console.log(`🚀 Servidor rodando em http://${host}:${port}`);
+    console.log(`📚 Documentação em http://${host}:${port}/docs`);
   } catch (error) {
     console.error("Erro ao iniciar servidor", error);
     process.exit(1);
