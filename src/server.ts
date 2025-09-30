@@ -51,7 +51,6 @@ async function start() {
     // Registrar rotas
     await fastify.register(routes);
 
-    // Condições de inicialização do servidor
     const port = Number(process.env.PORT) || 3001;
     const host =
       process.env.NODE_ENV === "production" ? "0.0.0.0" : "localhost";
