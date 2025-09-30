@@ -72,10 +72,6 @@ Crie um arquivo `.env` na raiz do projeto:
 ```env
 # Banco de dados
 DATABASE_URL="postgresql://usuario:senha@localhost:5432/logik_leads"
-
-# JWT
-JWT_SECRET="seu-jwt-secret-super-seguro"
-
 # Servidor
 PORT=5000
 NODE_ENV="development"
@@ -114,7 +110,6 @@ A documentação interativa permite:
 - 📖 Visualizar todos os endpoints
 - 🧪 Testar as rotas diretamente
 - 📝 Ver schemas de request/response
-- 🔐 Testar autenticação JWT
 
 ### Health Check
 ```bash
@@ -171,8 +166,6 @@ npm run db:seed     # Executar seed (dados teste)
 - ✅ **Telefone**: Padrão brasileiro `(XX) XXXXX-XXXX`
 - ✅ **Data**: Formato ISO válido
 - ✅ **Campos obrigatórios**: Validação server-side
-- ✅ **JWT**: Tokens com expiração de 7 dias
-- ✅ **Rate limiting**: Proteção contra abuso
 
 ## 🚀 Deploy
 

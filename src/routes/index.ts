@@ -57,7 +57,6 @@ export async function routes(fastify: FastifyInstance) {
     {
       schema: {
         tags: ["Leads - Admin"],
-        security: [{ Bearer: [] }],
         querystring: {
           type: "object",
           properties: {
@@ -93,7 +92,6 @@ export async function routes(fastify: FastifyInstance) {
     {
       schema: {
         tags: ["Leads - Admin"],
-        security: [{ Bearer: [] }],
         params: {
           type: "object",
           required: ["id"],
@@ -110,7 +108,6 @@ export async function routes(fastify: FastifyInstance) {
     {
       schema: {
         tags: ["Leads - Admin"],
-        security: [{ Bearer: [] }],
         params: {
           type: "object",
           required: ["id"],
@@ -128,7 +125,6 @@ export async function routes(fastify: FastifyInstance) {
     {
       schema: {
         tags: ["Leads - Admin"],
-        security: [{ Bearer: [] }],
         params: {
           type: "object",
           required: ["id"],
@@ -144,7 +140,6 @@ export async function routes(fastify: FastifyInstance) {
     {
       schema: {
         tags: ["Leads - Admin"],
-        security: [{ Bearer: [] }],
         response: { 200: { type: "string", description: "Arquivo CSV" } },
       },
     },
