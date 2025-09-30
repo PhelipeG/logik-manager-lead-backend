@@ -1,4 +1,3 @@
-import { AuthController } from "../controllers/authController";
 import { LeadController } from "../controllers/leadController";
 import { FastifyInstance } from "fastify";
 

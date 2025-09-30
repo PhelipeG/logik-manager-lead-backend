@@ -1,7 +1,6 @@
 import Fastify from "fastify";
 import { routes } from "./routes";
 import cors from "@fastify/cors";
-import jwt from "@fastify/jwt";
 
 const fastify = Fastify({
   logger: {
@@ -22,13 +21,6 @@ async function start() {
         schemes: ["http"],
         consumes: ["application/json"],
         produces: ["application/json"],
-        securityDefinitions: {
-          Bearer: {
-            type: "apiKey",
-            name: "Authorization",
-            in: "header",
-          },
-        },
       },
     });
 
@@ -43,11 +35,6 @@ async function start() {
       credentials: true,
       allowedHeaders: ['Content-Type', 'Authorization']
     });
-
-    await fastify.register(jwt, {
-      secret: process.env.JWT_SECRET || "your-secret-key",
-    });
-
     // Registrar rotas
     await fastify.register(routes);
 
@@ -63,5 +50,4 @@ async function start() {
   }
 }
 
-// Iniciar servidor
 start();
