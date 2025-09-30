@@ -103,8 +103,12 @@ O servidor estará rodando em: `http://localhost:5000`
 
 ## 📚 Documentação da API
 
+### 🌐 API em Produção
+**URL Base:** https://logik-manager-lead-backend.onrender.com
+
 ### Swagger UI (Interativa)
-Acesse: **http://localhost:5000/docs**
+- **Local:** http://localhost:5000/docs
+- **Produção:** https://logik-manager-lead-backend.onrender.com/docs
 
 A documentação interativa permite:
 - 📖 Visualizar todos os endpoints
@@ -113,12 +117,17 @@ A documentação interativa permite:
 
 ### Health Check
 ```bash
+# Local
 GET http://localhost:5000/api/health
+
+# Produção
+GET https://logik-manager-lead-backend.onrender.com/api/health
 ```
 ## 📊 Exemplos de Uso
 
 ### Criar Lead (Público)
 ```bash
+# Local
 curl -X POST http://localhost:5000/api/leads \
   -H "Content-Type: application/json" \
   -d '{
@@ -131,6 +140,21 @@ curl -X POST http://localhost:5000/api/leads \
     "utmSource": "google",
     "utmMedium": "cpc"
   }'
+
+# Produção
+curl -X POST https://logik-manager-lead-backend.onrender.com/api/leads \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "João Silva",
+    "email": "joao@email.com",
+    "phone": "(11) 99999-9999",
+    "position": "Desenvolvedor",
+    "birthDate": "1990-05-15",
+    "message": "Interessado nos serviços",
+    "utmSource": "google",
+    "utmMedium": "cpc"
+  }'
+```
 
 ## 🗂️ Estrutura do Projeto
 
@@ -168,12 +192,24 @@ npm run db:seed     # Executar seed (dados teste)
 
 ## 🚀 Deploy
 
+### 🌐 Deploy em Produção
+**API Live:** https://logik-manager-lead-backend.onrender.com
+
+**Plataforma:** Render.com  
+**Banco de dados:** NeonDB (PostgreSQL)
+
 ### Variáveis de ambiente para produção:
 ```env
 DATABASE_URL="postgresql://..."
 JWT_SECRET="production-secret"
 NODE_ENV="production"
 PORT=5000
+CORS_ORIGINS="https://seu-frontend.vercel.app"
+```
+
+### Como usar no Frontend:
+```typescript
+const API_URL = "https://logik-manager-lead-backend.onrender.com";
 ```
 ## 🤝 Contribuição
 
